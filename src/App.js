@@ -36,7 +36,18 @@ function App() {
     <div className="App">
       <header>
         <h1>Star Wars Catalogue</h1>
+        <form>
+          <input
+            type="text"
+            placeholder="Select movies..."
+          />
+          <input 
+            type="text"
+            placeholder="Select character name..."
+          />
+        </form>
       </header>
+      <section>
       {
         nextPage != null &&  <InfiniteScroll
           dataLength={characters.length}
@@ -53,6 +64,7 @@ function App() {
             />
           ))}
         </ul>
+      </section>
     </div>
   );
 }

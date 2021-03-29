@@ -22,7 +22,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
             <p>Gender: {gender}</p>
             <p>Birth Year: {birth_year}</p>
         </li>
-        <div>
+        <div className="info">
             <p>Mass: {mass}</p>
             <p>Height: {height}</p>
             <p>Movies Titles: {`${movie}`}</p>
