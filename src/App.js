@@ -37,33 +37,45 @@ function App() {
       <header>
         <h1>Star Wars Catalogue</h1>
         <form>
-          <input
+          <input className="input"
             type="text"
             placeholder="Select movies..."
           />
-          <input 
+          <input className="input"
             type="text"
             placeholder="Select character name..."
           />
+          <input className="submit"
+            type="submit"
+            value="search"
+          />
         </form>
       </header>
-      <section>
-      {
-        nextPage != null &&  <InfiniteScroll
-          dataLength={characters.length}
-          hasMore={true}
-          next={loadeCharacters}
-        >  
-        </InfiniteScroll>
-      }
-      <ul>
+      <section id="scroll-list">
+        {
+          nextPage != null &&  <InfiniteScroll
+            dataLength={characters.length}
+            hasMore={true}
+            next={loadeCharacters}
+            scrollableTarget="scroll-list"
+          >
+          </InfiniteScroll>
+        }
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Birth Year</th>
+            </tr>
+          </thead>
           {characters.length > 0 && characters.map( character => (
             <CharactersList 
               key={character.name} 
               {...character}
             />
           ))}
-        </ul>
+        </table>
       </section>
     </div>
   );

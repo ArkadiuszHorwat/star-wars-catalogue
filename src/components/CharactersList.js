@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
     const [movie, setMovies] = useState([]);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         setMovies([]);
@@ -16,18 +17,33 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
     },[]);
 
     return (
-        <>
-        <li>
-            <p>Name: {name}</p>
-            <p>Gender: {gender}</p>
-            <p>Birth Year: {birth_year}</p>
-        </li>
-        <div className="info">
-            <p>Mass: {mass}</p>
-            <p>Height: {height}</p>
-            <p>Movies Titles: {`${movie}`}</p>
-        </div>
-        </>
+        <tbody>
+            <tr onClick={()=> setVisible(!visible)}>
+                <td>
+                    {name}
+                </td>
+                <td>
+                    {gender}
+                </td>
+                <td>
+                    {birth_year}
+                </td>
+            </tr>
+            <tr className={!visible ? 'info invisible ' : 'info'}>
+                <td>
+                    <p>Mass</p> 
+                    {mass}
+                </td>
+                <td>
+                    <p>Height </p>
+                    {height}
+                </td>
+                <td>
+                    <p>Movies Titles</p>
+                    {`${movie}`}
+                </td>
+            </tr>
+        </tbody>
     )
 }
 
