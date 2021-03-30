@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import CharactersList from './components/CharactersList';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import SearchFilters from './components/SearchFilters';
 
-const apiURL = 'https://swapi.dev/api/people/?page=1';
+const apiURL = 'https://swapi.dev/api/people/?';
 
 function App() {
   const [ characters, setCharacters ] = useState([]);
   const [ nextPage, setNextPage ] = useState('');
+  const [ searchChar, setSearchChar ] = useState('');
 
   useEffect(() => {
-    getCharacters(apiURL);
+    setCharacters([]);
+    getCharacters(apiURL+'page=1');
   }, [])
 
   const getCharacters = apiURL => {
@@ -32,24 +35,30 @@ function App() {
     });
   }
 
+  const handleOnSubmit = event => {
+    event.preventDefault();
+
+    if(searchChar){
+      getCharacters(apiURL+`search=${searchChar}`);
+      setSearchChar('');
+    }
+    else if(searchChar == ''){
+      getCharacters(apiURL+'page=1');
+    }
+  }
+
+  const handleOnChange = event => {
+    setSearchChar(event.target.value);
+  }
+
   return (
     <div className="App">
       <header>
         <h1>Star Wars Catalogue</h1>
-        <form>
-          <input className="input"
-            type="text"
-            placeholder="Select movies..."
-          />
-          <input className="input"
-            type="text"
-            placeholder="Select character name..."
-          />
-          <input className="submit"
-            type="submit"
-            value="search"
-          />
-        </form>
+        <SearchFilters 
+          onChange={handleOnChange}
+          onSubmit={handleOnSubmit}
+        />
       </header>
       <section id="scroll-list">
         {
