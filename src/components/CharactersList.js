@@ -8,7 +8,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
         setMovies([]);
 
         films.map(film => {
-        fetch(film)
+        return fetch(film)
             .then( response => response.json())
             .then( data => {
                 setMovies(prev => [...prev, data.title]);
@@ -17,7 +17,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
               console.log(error)
             });
         });
-    },[]);
+    },[setMovies]);
 
     return (
         <tbody>

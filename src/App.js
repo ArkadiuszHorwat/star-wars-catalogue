@@ -37,7 +37,7 @@ function App() {
     .then(response => response.json())
     .then( data => {
       data.results.map( result => {
-        setCharacters( prev => [...prev, result]);  
+        return setCharacters( prev => [...prev, result]);  
       })
       setNextPage(data.next);
     })
@@ -54,10 +54,10 @@ function App() {
       .then( response => response.json())
       .then( data => {
         data.results[0].characters.map(item => {
-          fetch(item)
+          return fetch(item)
             .then(response => response.json())
             .then(data => {
-              setCharacters(prev => [...prev, data]);
+              return setCharacters(prev => [...prev, data]);
             })
         })
       })
