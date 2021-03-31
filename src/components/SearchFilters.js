@@ -1,18 +1,19 @@
 import React from 'react';
 
-function SearchFilters( { onChange, onSubmit }) {
+function SearchFilters( { onChangeName, onChangeMovies, onSubmit }) {
 
     return (
         <form onSubmit={onSubmit}>
             <input className="input"
                 type="text"
                 placeholder="Select movies..."
+                onChange={onChangeMovies}
             />
             <input 
                 className="input"
                 type="text"
                 placeholder="Select character name..."
-                onChange={onChange}
+                onChange={onChangeName}
             />
             <input className="submit"
                 type="submit"

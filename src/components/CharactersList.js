@@ -18,7 +18,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
 
     return (
         <tbody>
-            <tr onClick={()=> setVisible(!visible)}>
+            <tr onClick={() => setVisible(!visible)}>
                 <td>
                     {name}
                 </td>

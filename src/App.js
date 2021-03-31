@@ -9,14 +9,17 @@ function App() {
   const [ characters, setCharacters ] = useState([]);
   const [ nextPage, setNextPage ] = useState('');
   const [ searchChar, setSearchChar ] = useState('');
+  const [ searchMovies, setSearchMovies ] = useState('');
+  const [ more, setMore ] = useState(true);
 
   useEffect(() => {
-    setCharacters([]);
     getCharacters(apiURL+'page=1');
   }, [])
 
   const getCharacters = apiURL => {
-      fetch(apiURL)
+    setNextPage('');
+    setCharacters([]);
+    fetch(apiURL)
       .then(response => response.json())
       .then( data => {
         setCharacters(data.results);  
@@ -24,7 +27,8 @@ function App() {
       });
   }
 
-  const loadeCharacters = () => {
+  const loadCharacters = () => {
+    setNextPage('');
     fetch(nextPage)
     .then(response => response.json())
     .then( data => {
@@ -35,20 +39,46 @@ function App() {
     });
   }
 
+  const loadMovies = (movieTitle) => {
+    setCharacters([]);
+    setNextPage('')
+    setMore(false);
+    fetch(`https://swapi.dev/api/films/?search=${movieTitle}`)
+      .then( response => response.json())
+      .then( data => {
+        data.results[0].characters.map(item => {
+          fetch(item)
+            .then(response => response.json())
+            .then(data => {
+              setCharacters(prev => [...prev, data]);
+            })
+        })
+      });
+  }
+
   const handleOnSubmit = event => {
     event.preventDefault();
 
-    if(searchChar){
-      getCharacters(apiURL+`search=${searchChar}`);
-      setSearchChar('');
+    if(searchChar && searchMovies){
+      alert('Select only one field')
     }
-    else if(searchChar == ''){
+    else if(searchChar){
+      getCharacters(apiURL+`search=${searchChar}`);
+    }
+    else if(searchMovies){
+      loadMovies(searchMovies);
+    }
+    else if(searchChar === '' || searchMovies === ''){
       getCharacters(apiURL+'page=1');
+      setMore(true);
     }
   }
 
-  const handleOnChange = event => {
+  const handleOnChangeName = event => {
     setSearchChar(event.target.value);
+  }
+  const handleOnChangeMovies = event => {
+    setSearchMovies(event.target.value);
   }
 
   return (
@@ -56,16 +86,17 @@ function App() {
       <header>
         <h1>Star Wars Catalogue</h1>
         <SearchFilters 
-          onChange={handleOnChange}
+          onChangeName={handleOnChangeName}
+          onChangeMovies={handleOnChangeMovies}
           onSubmit={handleOnSubmit}
         />
       </header>
       <section id="scroll-list">
         {
-          nextPage != null &&  <InfiniteScroll
+          (nextPage != null && characters.length > 0) && <InfiniteScroll
             dataLength={characters.length}
-            hasMore={true}
-            next={loadeCharacters}
+            hasMore={more}
+            next={loadCharacters}
             scrollableTarget="scroll-list"
           >
           </InfiniteScroll>
