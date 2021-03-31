@@ -8,7 +8,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
         setMovies([]);
 
         films.map(film => {
-        return fetch(film)
+        return fetch(film.replace('http', 'https'))
             .then( response => response.json())
             .then( data => {
                 setMovies(prev => [...prev, data.title]);
