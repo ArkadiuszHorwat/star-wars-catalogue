@@ -1,0 +1,7 @@
+Instruction
+
+To turn on the application you need to install npm.
+
+In the project directory, open a terminal and enter the following commands:
+1. npm install
+2. npm start
