@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CharactersList from './components/CharactersList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import SearchFilters from './components/SearchFilters';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const apiURL = 'https://swapi.dev/api/people/?';
 
@@ -101,6 +102,9 @@ function App() {
         />
       </header>
       <section id="scroll-list">
+        {
+          characters.length === 0 && <ClipLoader color='white' size={100}/>
+        }
         {
           (nextPage != null && characters.length > 0) && <InfiniteScroll
             dataLength={characters.length}
