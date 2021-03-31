@@ -17,7 +17,7 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
               console.log(error)
             });
         });
-    },[setMovies]);
+    },[]);
 
     return (
         <tbody>
