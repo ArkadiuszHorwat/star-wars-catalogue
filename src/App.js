@@ -54,7 +54,7 @@ function App() {
       .then( response => response.json())
       .then( data => {
         data.results[0].characters.map(item => {
-          return fetch(item)
+          return fetch(item.replace('http','https'))
             .then(response => response.json())
             .then(data => {
               return setCharacters(prev => [...prev, data]);
