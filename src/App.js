@@ -23,8 +23,8 @@ function App() {
     fetch(apiURL)
       .then(response => response.json())
       .then( data => {
-        setCharacters(data.results);  
-        setNextPage(data.next);
+        setCharacters(data.results); 
+        setNextPage(data.next.replace('http', 'https'));
       })
       .catch(error => {
         console.log(error)
@@ -39,7 +39,7 @@ function App() {
       data.results.map( result => {
         return setCharacters( prev => [...prev, result]);  
       })
-      setNextPage(data.next);
+      setNextPage(data.next.replace('http', 'https'));
     })
     .catch(error => {
       console.log(error)
