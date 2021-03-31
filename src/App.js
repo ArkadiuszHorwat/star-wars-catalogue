@@ -24,6 +24,9 @@ function App() {
       .then( data => {
         setCharacters(data.results);  
         setNextPage(data.next);
+      })
+      .catch(error => {
+        console.log(error)
       });
   }
 
@@ -36,6 +39,9 @@ function App() {
         setCharacters( prev => [...prev, result]);  
       })
       setNextPage(data.next);
+    })
+    .catch(error => {
+      console.log(error)
     });
   }
 
@@ -53,6 +59,9 @@ function App() {
               setCharacters(prev => [...prev, data]);
             })
         })
+      })
+      .catch(error => {
+        console.log(error)
       });
   }
 

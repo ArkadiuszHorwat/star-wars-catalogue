@@ -12,6 +12,9 @@ const CharactersList = ( {name,gender,birth_year,mass,height, films} ) => {
             .then( response => response.json())
             .then( data => {
                 setMovies(prev => [...prev, data.title]);
+            })
+            .catch(error => {
+              console.log(error)
             });
         });
     },[]);
